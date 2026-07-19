@@ -40,10 +40,10 @@
   --space-8: 96px;
   --space-9: 128px;
 
-  /* Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+  /* Radius — Kinetic Brutalism: hard edges everywhere */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
 
   /* Motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -883,3 +883,126 @@ section { position: relative; }
 .media-placeholder__note { font-size: 12.5px; color: var(--color-text-dim); }
 .gallery-item--placeholder { cursor: default; }
 .gallery-item--placeholder:hover { transform: none; }
+
+/* ==========================================================================
+   KINETIC BRUTALISM OVERHAUL — ui-ux-pro-max design pass
+   Oversized uppercase display, 2px borders, hard edges,
+   Tiffany flood-inversion hovers, heavyweight marquee.
+   ========================================================================== */
+
+/* ---- Display type: oversized, uppercase, tight ---- */
+.hero__title, .section-head h2, .cta-band h2, .page-hero h1 {
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.hero__title { font-size: clamp(44px, 9vw, 112px); line-height: 0.95; }
+@supports (-webkit-text-stroke: 2px #81cfce) {
+  .hero__title em { color: transparent; -webkit-text-stroke: 2px var(--color-tiffany); }
+}
+.section-head { max-width: 860px; }
+.section-head h2 { font-size: clamp(34px, 4.5vw, 58px); line-height: 1.0; }
+.cta-band h2 { font-size: clamp(34px, 5vw, 64px); line-height: 1.0; }
+.service-detail__body h3 { text-transform: uppercase; font-weight: 800; letter-spacing: -0.01em; }
+.card h3 { text-transform: uppercase; font-weight: 700; font-size: 18px; letter-spacing: 0; }
+
+/* ---- Eyebrows: boxed tags ---- */
+.eyebrow {
+  border: 2px solid var(--color-tiffany);
+  padding: 6px 12px;
+  letter-spacing: 0.16em;
+}
+.eyebrow::before { display: none; }
+
+/* ---- Buttons: square, uppercase, 100ms flood inversion ---- */
+.btn {
+  border-radius: 0;
+  border-width: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  font-size: 14px;
+  transition: transform 100ms var(--ease-out), background 100ms linear, border-color 100ms linear, color 100ms linear;
+}
+.btn-primary { border-color: var(--color-tiffany); }
+.btn-primary:hover {
+  background: transparent;
+  color: var(--color-tiffany);
+  box-shadow: none;
+}
+.btn-outline { border-color: var(--color-text); }
+.btn-outline:hover {
+  background: var(--color-tiffany);
+  border-color: var(--color-tiffany);
+  color: #06201f;
+}
+
+/* ---- Nav: uppercase labels ---- */
+.nav__links a {
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+.mobile-menu a { text-transform: uppercase; font-weight: 800; }
+
+/* ---- Cards: 2px borders, hard offset shadow, tiffany flood on hover ---- */
+.card {
+  background: transparent;
+  border-width: 2px;
+  transition: border-color 120ms linear, background 120ms linear, transform 120ms var(--ease-out), box-shadow 120ms var(--ease-out);
+}
+.card:hover {
+  background: var(--color-tiffany);
+  border-color: var(--color-tiffany);
+  transform: translate(-4px, -4px);
+  box-shadow: 6px 6px 0 rgba(129, 207, 206, 0.3);
+}
+.card:hover h3, .card:hover .card__link { color: #06201f; }
+.card:hover p { color: rgba(6, 32, 31, 0.78); }
+.card:hover .card__icon { background: #06201f; color: var(--color-tiffany); transform: none; }
+.card__icon { border-radius: 0; }
+
+/* ---- Marquee: heavyweight, alternating outline ---- */
+.marquee { border-top-width: 2px; border-bottom-width: 2px; padding: var(--space-4) 0; }
+.marquee__track span {
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+@supports (-webkit-text-stroke: 1.5px #6e7376) {
+  .marquee__track span:nth-child(even) {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--color-text-dim);
+  }
+}
+
+/* ---- Stats: heavier numbers ---- */
+.hero__stat-num { font-weight: 800; font-size: clamp(26px, 3vw, 38px); letter-spacing: -0.01em; }
+
+/* ---- Gallery filter: square tags, flood active ---- */
+.filter-btn {
+  border-radius: 0;
+  border-width: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  transition: background 100ms linear, color 100ms linear, border-color 100ms linear;
+}
+.filter-btn.is-active {
+  background: var(--color-tiffany);
+  color: #06201f;
+  border-color: var(--color-tiffany);
+}
+
+/* ---- Media frames & placeholders: 2px hard borders ---- */
+.service-detail__media { border: 2px solid var(--color-border); }
+.media-placeholder { border-width: 2px; border-color: var(--color-border-light); }
+.media-placeholder__tag { letter-spacing: 0.16em; }
+
+/* ---- Forms: square fields, 2px borders ---- */
+.field input, .field select, .field textarea { border-radius: 0; border-width: 2px; }
+.field input:focus, .field select:focus, .field textarea:focus { box-shadow: 4px 4px 0 var(--color-tiffany-20); }
+.field label { text-transform: uppercase; font-size: 12px; letter-spacing: 0.1em; }
