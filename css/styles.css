@@ -183,7 +183,7 @@ section { position: relative; }
   justify-content: space-between;
   gap: var(--space-4);
 }
-.nav__logo img { height: 30px; width: auto; }
+.nav__logo img { height: 36px; width: auto; }
 .nav__links {
   display: none;
   align-items: center;
