@@ -845,3 +845,41 @@ section { position: relative; }
 /* ---- Misc ---- */
 .divider { height: 1px; background: var(--color-border); width: 100%; }
 .pill { display: inline-block; padding: 5px 12px; border-radius: 999px; background: var(--color-tiffany-10); color: var(--color-tiffany); font-size: 12.5px; font-weight: 600; }
+
+/* ---- Media placeholders (photos temporarily removed pending re-curation) ---- */
+.media-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  text-align: center;
+  border-radius: inherit;
+  border: 1px solid var(--color-tiffany-10);
+  background:
+    repeating-linear-gradient(-45deg, transparent 0 16px, rgba(129, 207, 206, 0.04) 16px 17px),
+    var(--color-surface);
+}
+.media-placeholder svg {
+  width: 32px;
+  height: 32px;
+  stroke: var(--color-tiffany-dim);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.media-placeholder__tag {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-tiffany);
+}
+.media-placeholder__note { font-size: 12.5px; color: var(--color-text-dim); }
+.gallery-item--placeholder { cursor: default; }
+.gallery-item--placeholder:hover { transform: none; }

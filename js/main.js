@@ -85,7 +85,8 @@ function initGalleryFilter() {
 /* ---- Lightbox for gallery images ---- */
 function initLightbox() {
   const lightbox = document.querySelector('.lightbox');
-  const items = Array.from(document.querySelectorAll('.gallery-item'));
+  const items = Array.from(document.querySelectorAll('.gallery-item'))
+    .filter(item => item.querySelector('img'));
   if (!lightbox || !items.length) return;
 
   const imgEl = lightbox.querySelector('img');
