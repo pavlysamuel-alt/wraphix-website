@@ -928,60 +928,90 @@ section { position: relative; }
       #a3e635 62.5% 75%,   /* lime */
       #d9b45b 75% 87.5%,   /* champagne gold */
       #81cfce 87.5% 100%); /* tiffany again — loop */
-    /* Blocks are 2x the element width (size 1600%): the wipe travels in from
-       far beyond the right edge, and the slack leaves room for the shake. */
-    background-size: 1600% 100%;
+    background-size: 800% 100%;
     -webkit-background-clip: text;
     background-clip: text;
-    animation: colorWipe 21s ease-in-out infinite;
+    will-change: transform;
+    /* Two animations: colorCycle swaps the solid colour while the copy is
+       off-screen; colorSlide physically flies the coloured text in from the
+       right edge of the screen and shakes it into the outline. */
+    animation:
+      colorCycle 21s linear infinite,
+      colorSlide 21s ease-in-out infinite;
   }
 }
-/* Per colour: hold ~2.1s -> fast wipe in from the right (~0.36s) with
-   overshoot -> shake back and forth -> settle into the outline. */
-@keyframes colorWipe {
-  0%      { background-position-x: 3.33%; }
-  10.00%  { background-position-x: 3.33%; }
-  11.71%  { background-position-x: 17.37%; }
-  12.57%  { background-position-x: 16.22%; }
-  13.29%  { background-position-x: 16.89%; }
-  13.86%  { background-position-x: 16.59%; }
-  14.29%  { background-position-x: 16.67%; }
-  24.29%  { background-position-x: 16.67%; }
-  25.99%  { background-position-x: 30.70%; }
-  26.86%  { background-position-x: 29.55%; }
-  27.57%  { background-position-x: 30.22%; }
-  28.14%  { background-position-x: 29.92%; }
-  28.57%  { background-position-x: 30.00%; }
-  38.57%  { background-position-x: 30.00%; }
-  40.28%  { background-position-x: 44.03%; }
-  41.14%  { background-position-x: 42.88%; }
-  41.86%  { background-position-x: 43.55%; }
-  42.43%  { background-position-x: 43.25%; }
-  42.86%  { background-position-x: 43.33%; }
-  52.86%  { background-position-x: 43.33%; }
-  54.56%  { background-position-x: 57.37%; }
-  55.43%  { background-position-x: 56.22%; }
-  56.14%  { background-position-x: 56.89%; }
-  56.71%  { background-position-x: 56.59%; }
-  57.14%  { background-position-x: 56.67%; }
-  67.14%  { background-position-x: 56.67%; }
-  68.85%  { background-position-x: 70.70%; }
-  69.71%  { background-position-x: 69.55%; }
-  70.43%  { background-position-x: 70.22%; }
-  71.00%  { background-position-x: 69.92%; }
-  71.43%  { background-position-x: 70.00%; }
-  81.43%  { background-position-x: 70.00%; }
-  83.13%  { background-position-x: 84.03%; }
-  84.00%  { background-position-x: 82.88%; }
-  84.71%  { background-position-x: 83.55%; }
-  85.28%  { background-position-x: 83.25%; }
-  85.71%  { background-position-x: 83.33%; }
-  95.71%  { background-position-x: 83.33%; }
-  97.42%  { background-position-x: 97.37%; }
-  98.28%  { background-position-x: 96.22%; }
-  99.00%  { background-position-x: 96.89%; }
-  99.57%  { background-position-x: 96.59%; }
-  100%    { background-position-x: 96.67%; }
+/* Colour block swap — jumps happen only while the copy is off-screen */
+@keyframes colorCycle {
+  0%      { background-position-x: 0%; }
+  11.29%  { background-position-x: 0%; }
+  11.30%  { background-position-x: 14.2857%; }
+  25.57%  { background-position-x: 14.2857%; }
+  25.59%  { background-position-x: 28.5714%; }
+  39.86%  { background-position-x: 28.5714%; }
+  39.88%  { background-position-x: 42.8571%; }
+  54.14%  { background-position-x: 42.8571%; }
+  54.16%  { background-position-x: 57.1428%; }
+  68.43%  { background-position-x: 57.1428%; }
+  68.45%  { background-position-x: 71.4285%; }
+  82.71%  { background-position-x: 71.4285%; }
+  82.73%  { background-position-x: 85.7142%; }
+  97.00%  { background-position-x: 85.7142%; }
+  97.02%  { background-position-x: 100%; }
+  100%    { background-position-x: 100%; }
+}
+/* Per colour (3s): hold 2.2s -> dart out left -> new colour flies in from the
+   far right of the screen -> overshoot -> shake back and forth -> settle */
+@keyframes colorSlide {
+    0.00%  { transform: translateX(0); }
+   10.47%  { transform: translateX(0); }
+   11.19%  { transform: translateX(-130vw); }
+   11.43%  { transform: translateX(130vw); }
+   12.61%  { transform: translateX(-14px); }
+   13.10%  { transform: translateX(9px); }
+   13.57%  { transform: translateX(-4px); }
+   14.29%  { transform: translateX(0); }
+   24.76%  { transform: translateX(0); }
+   25.47%  { transform: translateX(-130vw); }
+   25.71%  { transform: translateX(130vw); }
+   26.90%  { transform: translateX(-14px); }
+   27.39%  { transform: translateX(9px); }
+   27.86%  { transform: translateX(-4px); }
+   28.57%  { transform: translateX(0); }
+   39.04%  { transform: translateX(0); }
+   39.76%  { transform: translateX(-130vw); }
+   40.00%  { transform: translateX(130vw); }
+   41.19%  { transform: translateX(-14px); }
+   41.67%  { transform: translateX(9px); }
+   42.14%  { transform: translateX(-4px); }
+   42.86%  { transform: translateX(0); }
+   53.33%  { transform: translateX(0); }
+   54.04%  { transform: translateX(-130vw); }
+   54.29%  { transform: translateX(130vw); }
+   55.47%  { transform: translateX(-14px); }
+   55.96%  { transform: translateX(9px); }
+   56.43%  { transform: translateX(-4px); }
+   57.14%  { transform: translateX(0); }
+   67.61%  { transform: translateX(0); }
+   68.33%  { transform: translateX(-130vw); }
+   68.57%  { transform: translateX(130vw); }
+   69.76%  { transform: translateX(-14px); }
+   70.24%  { transform: translateX(9px); }
+   70.71%  { transform: translateX(-4px); }
+   71.43%  { transform: translateX(0); }
+   81.90%  { transform: translateX(0); }
+   82.61%  { transform: translateX(-130vw); }
+   82.86%  { transform: translateX(130vw); }
+   84.04%  { transform: translateX(-14px); }
+   84.53%  { transform: translateX(9px); }
+   85.00%  { transform: translateX(-4px); }
+   85.71%  { transform: translateX(0); }
+   96.19%  { transform: translateX(0); }
+   96.90%  { transform: translateX(-130vw); }
+   97.14%  { transform: translateX(130vw); }
+   98.33%  { transform: translateX(-14px); }
+   98.81%  { transform: translateX(9px); }
+   99.29%  { transform: translateX(-4px); }
+  100.00%  { transform: translateX(0); }
 }
 .section-head { max-width: 860px; }
 .section-head h2 { font-size: clamp(34px, 4.5vw, 58px); line-height: 1.0; }
