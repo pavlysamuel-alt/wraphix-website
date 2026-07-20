@@ -915,21 +915,22 @@ section { position: relative; }
 /* Each fill layer is one wrap swatch — flat colours plus chrome and camo
    finishes. All layers stack in the grid; each flies in from beyond the right
    screen edge, shakes into the outline, holds, darts out left, then parks
-   off-screen for the rest of the 21s cycle (7 designs x 3s, staggered via
+   off-screen for the rest of the 24s cycle (8 designs x 3s, staggered via
    negative delays). Patterned finishes need background-clip; flat colours
    don't, so old browsers still get a working colour cycle. */
 .color-sweep__fill {
   text-shadow: none;
   will-change: transform;
-  animation: flyShake 21s ease-in-out infinite;
+  animation: flyShake 24s ease-in-out infinite;
 }
-.fill--tiffany { color: #81cfce; animation-delay: -21s; }
-.fill--chrome  { color: #c9d2d6; animation-delay: -18s; }
-.fill--magenta { color: #ec4899; animation-delay: -15s; }
-.fill--camo    { color: #8a9194; animation-delay: -12s; }
-.fill--purple  { color: #8b5cf6; animation-delay: -9s;  }
+.fill--tiffany { color: #81cfce; animation-delay: -24s; }
+.fill--chrome  { color: #c9d2d6; animation-delay: -21s; }
+.fill--magenta { color: #ec4899; animation-delay: -18s; }
+.fill--camo    { color: #8a9194; animation-delay: -15s; }
+.fill--lime    { color: #a3e635; animation-delay: -12s; }
+.fill--topo    { color: #74898b; animation-delay: -9s;  }
 .fill--white   { color: #f5f7f7; animation-delay: -6s;  }
-.fill--lime    { color: #a3e635; animation-delay: -3s;  }
+.fill--carbon  { color: #3a4145; animation-delay: -3s;  }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
   /* Chrome: mirror-polish vertical gradient with a dark horizon band */
   .fill--chrome {
@@ -949,19 +950,45 @@ section { position: relative; }
     -webkit-background-clip: text;
     background-clip: text;
   }
+  /* Topographic: tiffany contour lines on dark slate (inline SVG) */
+  .fill--topo {
+    color: transparent;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><rect width='260' height='260' fill='%23242a2d'/><g fill='none' stroke='%2381cfce' stroke-width='2.5'><path d='M40 70 q20 -30 55 -22 q38 8 30 40 q-8 30 -45 28 Q38 112 40 70Z'/><path d='M52 74 q14 -20 38 -15 q26 6 20 27 q-6 21 -31 19 Q50 102 52 74Z'/><path d='M64 78 q8 -11 21 -8 q14 3 11 14 q-3 12 -17 10 Q62 92 64 78Z'/><path d='M170 160 q25 -35 60 -20 q30 14 18 48 q-12 32 -50 24 Q160 202 170 160Z'/><path d='M182 164 q18 -25 43 -14 q21 10 12 34 q-9 23 -36 17 Q174 194 182 164Z'/><path d='M194 168 q10 -14 24 -8 q12 6 7 19 q-5 13 -20 10 Q190 182 194 168Z'/><path d='M-20 200 q40 -30 80 -5 q30 20 10 45 l-100 5Z'/><path d='M-20 215 q35 -22 62 -3 q20 15 6 33 l-70 3Z'/><path d='M200 20 q30 -15 55 5 l5 40 q-35 12 -55 -10 q-16 -18 -5 -35Z'/><path d='M212 30 q20 -10 36 4 l3 24 q-22 8 -36 -7 q-10 -12 -3 -21Z'/><path d='M110 10 q22 -14 40 2 q14 14 2 28 q-14 15 -32 6 q-18 -10 -10 -36Z'/><path d='M120 18 q14 -9 26 2 q9 9 1 18 q-9 10 -21 4 q-12 -7 -6 -24Z'/></g></svg>");
+    background-size: 230px 230px;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  /* Gloss carbon fibre: 2x2 twill weave in charcoal greys with a diagonal
+     light sheen swept across the whole word */
+  .fill--carbon {
+    background-color: #23282b;
+    background-image:
+      linear-gradient(115deg, rgba(255,255,255,0) 32%, rgba(255,255,255,0.34) 43%, rgba(255,255,255,0.05) 49%, rgba(255,255,255,0) 60%),
+      linear-gradient(27deg, #1f2427 5px, transparent 5px),
+      linear-gradient(207deg, #1f2427 5px, transparent 5px),
+      linear-gradient(27deg, #343b3f 5px, transparent 5px),
+      linear-gradient(207deg, #343b3f 5px, transparent 5px),
+      linear-gradient(90deg, #272d31 10px, transparent 10px),
+      linear-gradient(#2e3438 25%, #1f2427 25%, #1f2427 50%, transparent 50%, transparent 75%, #383f43 75%, #383f43);
+    background-position: 0 0, 0 5px, 10px 0, 0 10px, 10px 5px, 0 0, 0 0;
+    background-size: 100% 100%, 20px 20px, 20px 20px, 20px 20px, 20px 20px, 20px 20px, 20px 20px;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
 }
-/* Per 3s slot of the 21s cycle: fly in fast from beyond the right screen
+/* Per 3s slot of the 24s cycle: fly in fast from beyond the right screen
    edge -> overshoot -> shake back and forth into the outline -> hold ~2s ->
    dart out left -> park off-screen until the next lap. */
 @keyframes flyShake {
   0%      { transform: translateX(120vw); }
-  1.71%   { transform: translateX(-14px); }
-  2.19%   { transform: translateX(9px); }
-  2.67%   { transform: translateX(-4px); }
-  3.33%   { transform: translateX(0); }
-  13.10%  { transform: translateX(0); }
-  13.81%  { transform: translateX(-130vw); }
-  13.83%  { transform: translateX(120vw); }
+  1.50%   { transform: translateX(-14px); }
+  1.92%   { transform: translateX(9px); }
+  2.33%   { transform: translateX(-4px); }
+  2.92%   { transform: translateX(0); }
+  11.46%  { transform: translateX(0); }
+  12.08%  { transform: translateX(-130vw); }
+  12.10%  { transform: translateX(120vw); }
   100%    { transform: translateX(120vw); }
 }
 @media (prefers-reduced-motion: reduce) {
