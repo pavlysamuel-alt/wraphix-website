@@ -912,106 +912,61 @@ section { position: relative; }
     1.4px 1.4px 0 var(--color-tiffany), -1.4px 1.4px 0 var(--color-tiffany),
     1.4px -1.4px 0 var(--color-tiffany), -1.4px -1.4px 0 var(--color-tiffany);
 }
-.color-sweep__fill { color: var(--color-tiffany); text-shadow: none; }
+/* Each fill layer is one wrap swatch — flat colours plus chrome and camo
+   finishes. All layers stack in the grid; each flies in from beyond the right
+   screen edge, shakes into the outline, holds, darts out left, then parks
+   off-screen for the rest of the 21s cycle (7 designs x 3s, staggered via
+   negative delays). Patterned finishes need background-clip; flat colours
+   don't, so old browsers still get a working colour cycle. */
+.color-sweep__fill {
+  text-shadow: none;
+  will-change: transform;
+  animation: flyShake 21s ease-in-out infinite;
+}
+.fill--tiffany { color: #81cfce; animation-delay: -21s; }
+.fill--chrome  { color: #c9d2d6; animation-delay: -18s; }
+.fill--magenta { color: #ec4899; animation-delay: -15s; }
+.fill--camo    { color: #8a9194; animation-delay: -12s; }
+.fill--purple  { color: #8b5cf6; animation-delay: -9s;  }
+.fill--white   { color: #f5f7f7; animation-delay: -6s;  }
+.fill--lime    { color: #a3e635; animation-delay: -3s;  }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .color-sweep__fill {
+  /* Chrome: mirror-polish vertical gradient with a dark horizon band */
+  .fill--chrome {
     color: transparent;
-    /* 8 solid blocks (7 swatches + repeat of the first for a seamless loop),
-       hard edges. Each block spans exactly one element width (size 800%),
-       so stepping the position by 1/7 wipes in exactly one new colour. */
-    background-image: linear-gradient(90deg,
-      #81cfce 0% 12.5%,    /* tiffany blue */
-      #f5f7f7 12.5% 25%,   /* gloss white */
-      #ff7a3d 25% 37.5%,   /* sunset orange */
-      #ec4899 37.5% 50%,   /* hot magenta */
-      #8b5cf6 50% 62.5%,   /* electric purple */
-      #a3e635 62.5% 75%,   /* lime */
-      #d9b45b 75% 87.5%,   /* champagne gold */
-      #81cfce 87.5% 100%); /* tiffany again — loop */
-    background-size: 800% 100%;
+    background-image: linear-gradient(180deg,
+      #f9fbfc 0%, #dfe7ea 12%, #b9c4c9 26%, #eef3f4 36%,
+      #8b979d 47%, #3f484d 52%, #a7b2b8 58%, #e6edef 72%,
+      #98a4aa 86%, #d4dcdf 100%);
     -webkit-background-clip: text;
     background-clip: text;
-    will-change: transform;
-    /* Two animations: colorCycle swaps the solid colour while the copy is
-       off-screen; colorSlide physically flies the coloured text in from the
-       right edge of the screen and shakes it into the outline. */
-    animation:
-      colorCycle 21s linear infinite,
-      colorSlide 21s ease-in-out infinite;
+  }
+  /* Camo: white / grey / charcoal / tiffany blobs on a slate base (inline SVG) */
+  .fill--camo {
+    color: transparent;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><rect width='260' height='260' fill='%23666e72'/><path d='M20 40 q30 -35 70 -18 q45 12 30 45 q-14 30 -55 25 Q15 85 20 40Z' fill='%23e8eef0'/><path d='M150 20 q40 -25 75 0 q30 22 10 50 q-22 28 -60 15 q-38 -14 -25 -65Z' fill='%2381cfce'/><path d='M40 150 q35 -20 65 5 q28 25 5 55 q-25 30 -60 12 q-32 -18 -10 -72Z' fill='%232b3236'/><path d='M170 140 q45 -18 70 15 q20 30 -10 55 q-32 25 -62 2 q-28 -22 2 -72Z' fill='%23e8eef0'/><path d='M100 90 q30 -18 55 5 q22 22 0 45 q-25 25 -52 8 q-25 -16 -3 -58Z' fill='%23394247'/><path d='M-10 220 q28 -25 60 -5 q30 20 10 45 l-80 0Z' fill='%2381cfce'/><path d='M210 60 q25 -15 45 5 l0 45 q-30 15 -48 -8 q-15 -20 3 -42Z' fill='%232b3236'/></svg>");
+    background-size: 210px 210px;
+    -webkit-background-clip: text;
+    background-clip: text;
   }
 }
-/* Colour block swap — jumps happen only while the copy is off-screen */
-@keyframes colorCycle {
-  0%      { background-position-x: 0%; }
-  11.29%  { background-position-x: 0%; }
-  11.30%  { background-position-x: 14.2857%; }
-  25.57%  { background-position-x: 14.2857%; }
-  25.59%  { background-position-x: 28.5714%; }
-  39.86%  { background-position-x: 28.5714%; }
-  39.88%  { background-position-x: 42.8571%; }
-  54.14%  { background-position-x: 42.8571%; }
-  54.16%  { background-position-x: 57.1428%; }
-  68.43%  { background-position-x: 57.1428%; }
-  68.45%  { background-position-x: 71.4285%; }
-  82.71%  { background-position-x: 71.4285%; }
-  82.73%  { background-position-x: 85.7142%; }
-  97.00%  { background-position-x: 85.7142%; }
-  97.02%  { background-position-x: 100%; }
-  100%    { background-position-x: 100%; }
+/* Per 3s slot of the 21s cycle: fly in fast from beyond the right screen
+   edge -> overshoot -> shake back and forth into the outline -> hold ~2s ->
+   dart out left -> park off-screen until the next lap. */
+@keyframes flyShake {
+  0%      { transform: translateX(120vw); }
+  1.71%   { transform: translateX(-14px); }
+  2.19%   { transform: translateX(9px); }
+  2.67%   { transform: translateX(-4px); }
+  3.33%   { transform: translateX(0); }
+  13.10%  { transform: translateX(0); }
+  13.81%  { transform: translateX(-130vw); }
+  13.83%  { transform: translateX(120vw); }
+  100%    { transform: translateX(120vw); }
 }
-/* Per colour (3s): hold 2.2s -> dart out left -> new colour flies in from the
-   far right of the screen -> overshoot -> shake back and forth -> settle */
-@keyframes colorSlide {
-    0.00%  { transform: translateX(0); }
-   10.47%  { transform: translateX(0); }
-   11.19%  { transform: translateX(-130vw); }
-   11.43%  { transform: translateX(130vw); }
-   12.61%  { transform: translateX(-14px); }
-   13.10%  { transform: translateX(9px); }
-   13.57%  { transform: translateX(-4px); }
-   14.29%  { transform: translateX(0); }
-   24.76%  { transform: translateX(0); }
-   25.47%  { transform: translateX(-130vw); }
-   25.71%  { transform: translateX(130vw); }
-   26.90%  { transform: translateX(-14px); }
-   27.39%  { transform: translateX(9px); }
-   27.86%  { transform: translateX(-4px); }
-   28.57%  { transform: translateX(0); }
-   39.04%  { transform: translateX(0); }
-   39.76%  { transform: translateX(-130vw); }
-   40.00%  { transform: translateX(130vw); }
-   41.19%  { transform: translateX(-14px); }
-   41.67%  { transform: translateX(9px); }
-   42.14%  { transform: translateX(-4px); }
-   42.86%  { transform: translateX(0); }
-   53.33%  { transform: translateX(0); }
-   54.04%  { transform: translateX(-130vw); }
-   54.29%  { transform: translateX(130vw); }
-   55.47%  { transform: translateX(-14px); }
-   55.96%  { transform: translateX(9px); }
-   56.43%  { transform: translateX(-4px); }
-   57.14%  { transform: translateX(0); }
-   67.61%  { transform: translateX(0); }
-   68.33%  { transform: translateX(-130vw); }
-   68.57%  { transform: translateX(130vw); }
-   69.76%  { transform: translateX(-14px); }
-   70.24%  { transform: translateX(9px); }
-   70.71%  { transform: translateX(-4px); }
-   71.43%  { transform: translateX(0); }
-   81.90%  { transform: translateX(0); }
-   82.61%  { transform: translateX(-130vw); }
-   82.86%  { transform: translateX(130vw); }
-   84.04%  { transform: translateX(-14px); }
-   84.53%  { transform: translateX(9px); }
-   85.00%  { transform: translateX(-4px); }
-   85.71%  { transform: translateX(0); }
-   96.19%  { transform: translateX(0); }
-   96.90%  { transform: translateX(-130vw); }
-   97.14%  { transform: translateX(130vw); }
-   98.33%  { transform: translateX(-14px); }
-   98.81%  { transform: translateX(9px); }
-   99.29%  { transform: translateX(-4px); }
-  100.00%  { transform: translateX(0); }
+@media (prefers-reduced-motion: reduce) {
+  .color-sweep__fill { animation: none; visibility: hidden; }
+  .fill--tiffany { visibility: visible; }
 }
 .section-head { max-width: 860px; }
 .section-head h2 { font-size: clamp(34px, 4.5vw, 58px); line-height: 1.0; }
