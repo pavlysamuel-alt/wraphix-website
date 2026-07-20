@@ -928,29 +928,60 @@ section { position: relative; }
       #a3e635 62.5% 75%,   /* lime */
       #d9b45b 75% 87.5%,   /* champagne gold */
       #81cfce 87.5% 100%); /* tiffany again — loop */
-    background-size: 800% 100%;
+    /* Blocks are 2x the element width (size 1600%): the wipe travels in from
+       far beyond the right edge, and the slack leaves room for the shake. */
+    background-size: 1600% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     animation: colorWipe 21s ease-in-out infinite;
   }
 }
-/* Hold each colour ~2.5s, then a ~0.5s wipe brings the next in from the right */
+/* Per colour: hold ~2.1s -> fast wipe in from the right (~0.36s) with
+   overshoot -> shake back and forth -> settle into the outline. */
 @keyframes colorWipe {
-  0%       { background-position-x: 0%; }
-  11.905%  { background-position-x: 0%; }
-  14.286%  { background-position-x: 14.2857%; }
-  26.19%   { background-position-x: 14.2857%; }
-  28.571%  { background-position-x: 28.5714%; }
-  40.476%  { background-position-x: 28.5714%; }
-  42.857%  { background-position-x: 42.8571%; }
-  54.762%  { background-position-x: 42.8571%; }
-  57.143%  { background-position-x: 57.1428%; }
-  69.048%  { background-position-x: 57.1428%; }
-  71.429%  { background-position-x: 71.4285%; }
-  83.333%  { background-position-x: 71.4285%; }
-  85.714%  { background-position-x: 85.7142%; }
-  97.619%  { background-position-x: 85.7142%; }
-  100%     { background-position-x: 100%; }
+  0%      { background-position-x: 3.33%; }
+  10.00%  { background-position-x: 3.33%; }
+  11.71%  { background-position-x: 17.37%; }
+  12.57%  { background-position-x: 16.22%; }
+  13.29%  { background-position-x: 16.89%; }
+  13.86%  { background-position-x: 16.59%; }
+  14.29%  { background-position-x: 16.67%; }
+  24.29%  { background-position-x: 16.67%; }
+  25.99%  { background-position-x: 30.70%; }
+  26.86%  { background-position-x: 29.55%; }
+  27.57%  { background-position-x: 30.22%; }
+  28.14%  { background-position-x: 29.92%; }
+  28.57%  { background-position-x: 30.00%; }
+  38.57%  { background-position-x: 30.00%; }
+  40.28%  { background-position-x: 44.03%; }
+  41.14%  { background-position-x: 42.88%; }
+  41.86%  { background-position-x: 43.55%; }
+  42.43%  { background-position-x: 43.25%; }
+  42.86%  { background-position-x: 43.33%; }
+  52.86%  { background-position-x: 43.33%; }
+  54.56%  { background-position-x: 57.37%; }
+  55.43%  { background-position-x: 56.22%; }
+  56.14%  { background-position-x: 56.89%; }
+  56.71%  { background-position-x: 56.59%; }
+  57.14%  { background-position-x: 56.67%; }
+  67.14%  { background-position-x: 56.67%; }
+  68.85%  { background-position-x: 70.70%; }
+  69.71%  { background-position-x: 69.55%; }
+  70.43%  { background-position-x: 70.22%; }
+  71.00%  { background-position-x: 69.92%; }
+  71.43%  { background-position-x: 70.00%; }
+  81.43%  { background-position-x: 70.00%; }
+  83.13%  { background-position-x: 84.03%; }
+  84.00%  { background-position-x: 82.88%; }
+  84.71%  { background-position-x: 83.55%; }
+  85.28%  { background-position-x: 83.25%; }
+  85.71%  { background-position-x: 83.33%; }
+  95.71%  { background-position-x: 83.33%; }
+  97.42%  { background-position-x: 97.37%; }
+  98.28%  { background-position-x: 96.22%; }
+  99.00%  { background-position-x: 96.89%; }
+  99.57%  { background-position-x: 96.59%; }
+  100%    { background-position-x: 96.67%; }
 }
 .section-head { max-width: 860px; }
 .section-head h2 { font-size: clamp(34px, 4.5vw, 58px); line-height: 1.0; }
