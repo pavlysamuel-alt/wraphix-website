@@ -946,7 +946,9 @@ section { position: relative; }
   .fill--camo {
     color: transparent;
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><rect width='260' height='260' fill='%23666e72'/><path d='M20 40 q30 -35 70 -18 q45 12 30 45 q-14 30 -55 25 Q15 85 20 40Z' fill='%23e8eef0'/><path d='M150 20 q40 -25 75 0 q30 22 10 50 q-22 28 -60 15 q-38 -14 -25 -65Z' fill='%2381cfce'/><path d='M40 150 q35 -20 65 5 q28 25 5 55 q-25 30 -60 12 q-32 -18 -10 -72Z' fill='%232b3236'/><path d='M170 140 q45 -18 70 15 q20 30 -10 55 q-32 25 -62 2 q-28 -22 2 -72Z' fill='%23e8eef0'/><path d='M100 90 q30 -18 55 5 q22 22 0 45 q-25 25 -52 8 q-25 -16 -3 -58Z' fill='%23394247'/><path d='M-10 220 q28 -25 60 -5 q30 20 10 45 l-80 0Z' fill='%2381cfce'/><path d='M210 60 q25 -15 45 5 l0 45 q-30 15 -48 -8 q-15 -20 3 -42Z' fill='%232b3236'/></svg>");
-    background-size: 210px 210px;
+    /* em-based so the pattern scales with the headline: ~210px on desktop,
+       ~80px on phones — keeps it reading as camo, not blotches */
+    background-size: 1.85em 1.85em;
     -webkit-background-clip: text;
     background-clip: text;
   }
@@ -954,7 +956,7 @@ section { position: relative; }
   .fill--topo {
     color: transparent;
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><rect width='260' height='260' fill='%23242a2d'/><g fill='none' stroke='%2381cfce' stroke-width='2.5'><path d='M40 70 q20 -30 55 -22 q38 8 30 40 q-8 30 -45 28 Q38 112 40 70Z'/><path d='M52 74 q14 -20 38 -15 q26 6 20 27 q-6 21 -31 19 Q50 102 52 74Z'/><path d='M64 78 q8 -11 21 -8 q14 3 11 14 q-3 12 -17 10 Q62 92 64 78Z'/><path d='M170 160 q25 -35 60 -20 q30 14 18 48 q-12 32 -50 24 Q160 202 170 160Z'/><path d='M182 164 q18 -25 43 -14 q21 10 12 34 q-9 23 -36 17 Q174 194 182 164Z'/><path d='M194 168 q10 -14 24 -8 q12 6 7 19 q-5 13 -20 10 Q190 182 194 168Z'/><path d='M-20 200 q40 -30 80 -5 q30 20 10 45 l-100 5Z'/><path d='M-20 215 q35 -22 62 -3 q20 15 6 33 l-70 3Z'/><path d='M200 20 q30 -15 55 5 l5 40 q-35 12 -55 -10 q-16 -18 -5 -35Z'/><path d='M212 30 q20 -10 36 4 l3 24 q-22 8 -36 -7 q-10 -12 -3 -21Z'/><path d='M110 10 q22 -14 40 2 q14 14 2 28 q-14 15 -32 6 q-18 -10 -10 -36Z'/><path d='M120 18 q14 -9 26 2 q9 9 1 18 q-9 10 -21 4 q-12 -7 -6 -24Z'/></g></svg>");
-    background-size: 230px 230px;
+    background-size: 2.05em 2.05em;
     -webkit-background-clip: text;
     background-clip: text;
   }
@@ -962,16 +964,17 @@ section { position: relative; }
      light sheen swept across the whole word */
   .fill--carbon {
     background-color: #23282b;
+    /* weave tile is .18em (~20px on desktop) so it scales with the text */
     background-image:
       linear-gradient(115deg, rgba(255,255,255,0) 32%, rgba(255,255,255,0.34) 43%, rgba(255,255,255,0.05) 49%, rgba(255,255,255,0) 60%),
-      linear-gradient(27deg, #1f2427 5px, transparent 5px),
-      linear-gradient(207deg, #1f2427 5px, transparent 5px),
-      linear-gradient(27deg, #343b3f 5px, transparent 5px),
-      linear-gradient(207deg, #343b3f 5px, transparent 5px),
-      linear-gradient(90deg, #272d31 10px, transparent 10px),
+      linear-gradient(27deg, #1f2427 .045em, transparent .045em),
+      linear-gradient(207deg, #1f2427 .045em, transparent .045em),
+      linear-gradient(27deg, #343b3f .045em, transparent .045em),
+      linear-gradient(207deg, #343b3f .045em, transparent .045em),
+      linear-gradient(90deg, #272d31 .09em, transparent .09em),
       linear-gradient(#2e3438 25%, #1f2427 25%, #1f2427 50%, transparent 50%, transparent 75%, #383f43 75%, #383f43);
-    background-position: 0 0, 0 5px, 10px 0, 0 10px, 10px 5px, 0 0, 0 0;
-    background-size: 100% 100%, 20px 20px, 20px 20px, 20px 20px, 20px 20px, 20px 20px, 20px 20px;
+    background-position: 0 0, 0 .045em, .09em 0, 0 .09em, .09em .045em, 0 0, 0 0;
+    background-size: 100% 100%, .18em .18em, .18em .18em, .18em .18em, .18em .18em, .18em .18em, .18em .18em;
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
