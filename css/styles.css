@@ -1106,3 +1106,53 @@ section { position: relative; }
 .field input, .field select, .field textarea { border-radius: 0; border-width: 2px; }
 .field input:focus, .field select:focus, .field textarea:focus { box-shadow: 4px 4px 0 var(--color-tiffany-20); }
 .field label { text-transform: uppercase; font-size: 12px; letter-spacing: 0.1em; }
+
+/* ---- Teal-inverted section: color block to break up the black ---- */
+.section--teal {
+  background: var(--color-tiffany);
+  color: #06201f;
+  border-top: 2px solid #0a0a0b;
+  border-bottom: 2px solid #0a0a0b;
+}
+.section--teal .eyebrow { color: #06201f; border-color: #06201f; }
+.section--teal h2,
+.section--teal h3 { color: #0a0a0b; }
+.section--teal p { color: rgba(6, 32, 31, 0.82); }
+.section--teal .check-list li { color: #0a0a0b; font-weight: 600; }
+.section--teal .check-list svg { color: #0a0a0b; }
+/* Buttons invert on teal: black fill, flood to dark-outline on hover */
+.section--teal .btn-primary {
+  background: #0a0a0b;
+  color: var(--color-tiffany);
+  border-color: #0a0a0b;
+}
+.section--teal .btn-primary:hover {
+  background: transparent;
+  color: #06201f;
+  border-color: #06201f;
+  box-shadow: none;
+}
+
+/* ---- "What is a wrap?" explainer layout ---- */
+.wrap101 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .wrap101 { grid-template-columns: 1.15fr 1fr; gap: var(--space-8); }
+}
+.wrap101 h2 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 800;
+  line-height: 1.05;
+  font-size: clamp(30px, 4.5vw, 48px);
+  margin-top: var(--space-3);
+}
+.wrap101 h2 em { font-style: italic; }
+.wrap101 p { margin-top: var(--space-4); font-size: 17px; line-height: 1.6; }
+.wrap101 .btn { margin-top: var(--space-5); }
+.wrap101__points { gap: var(--space-4); }
+.wrap101__points li { font-size: 17px; }
