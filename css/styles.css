@@ -277,21 +277,23 @@ section { position: relative; }
 }
 .hero__stripes {
   position: absolute;
-  inset: 0;
+  inset: -10% -5%;
   z-index: 0;
-  opacity: 0.5;
-  background-image: repeating-linear-gradient(
-    115deg,
-    transparent 0px,
-    transparent 68px,
-    rgba(129,207,206,0.05) 68px,
-    rgba(129,207,206,0.05) 70px
-  );
-  animation: stripeDrift 34s linear infinite;
+  opacity: 0.09;
+  background: var(--color-tiffany);
+  -webkit-mask-image: url(../assets/textures/wrap-everything.png);
+  mask-image: url(../assets/textures/wrap-everything.png);
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-size: 760px auto;
+  mask-size: 760px auto;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+  animation: stripeDrift 90s linear infinite;
 }
 @keyframes stripeDrift {
-  from { background-position: 0 0; }
-  to { background-position: 900px 0; }
+  from { -webkit-mask-position: 0 0; mask-position: 0 0; }
+  to { -webkit-mask-position: 760px 0; mask-position: 760px 0; }
 }
 .hero__glow {
   position: absolute;
