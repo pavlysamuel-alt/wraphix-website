@@ -276,24 +276,25 @@ section { position: relative; }
   background: radial-gradient(120% 90% at 50% -10%, #14171a 0%, var(--color-black) 60%);
 }
 .hero__stripes {
+  --wm: url(../assets/textures/wrap-everything.png);
   position: absolute;
-  inset: -10% -5%;
+  inset: -25%;
   z-index: 0;
   opacity: 0.09;
   background: var(--color-tiffany);
-  -webkit-mask-image: url(../assets/textures/wrap-everything.png);
-  mask-image: url(../assets/textures/wrap-everything.png);
-  -webkit-mask-repeat: repeat;
-  mask-repeat: repeat;
-  -webkit-mask-size: 760px auto;
-  mask-size: 760px auto;
-  -webkit-mask-position: 0 0;
-  mask-position: 0 0;
-  animation: stripeDrift 90s linear infinite;
+  -webkit-mask-image: var(--wm), var(--wm), var(--wm), var(--wm), var(--wm);
+  mask-image: var(--wm), var(--wm), var(--wm), var(--wm), var(--wm);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 980px, 1120px, 900px, 1040px, 840px;
+  mask-size: 980px, 1120px, 900px, 1040px, 840px;
+  -webkit-mask-position: 4% 12%, 74% 6%, 40% 46%, 12% 82%, 86% 84%;
+  mask-position: 4% 12%, 74% 6%, 40% 46%, 12% 82%, 86% 84%;
+  animation: stripeDrift 60s ease-in-out infinite alternate;
 }
 @keyframes stripeDrift {
-  from { -webkit-mask-position: 0 0; mask-position: 0 0; }
-  to { -webkit-mask-position: 760px 0; mask-position: 760px 0; }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-5%, -3.5%, 0); }
 }
 .hero__glow {
   position: absolute;
