@@ -351,7 +351,7 @@ section { position: relative; }
   z-index: 0;
   pointer-events: none;
 }
-.hero__content { position: relative; z-index: 2; max-width: 780px; padding-top: var(--space-6); padding-bottom: var(--space-7); }
+.hero__content { position: relative; z-index: 2; max-width: 100%; padding-top: var(--space-6); padding-bottom: var(--space-7); }
 .hero__title {
   font-size: clamp(40px, 8vw, 84px);
   line-height: 1.02;
@@ -374,7 +374,7 @@ section { position: relative; }
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
   margin-top: var(--space-7);
-  max-width: 640px;
+  max-width: 960px;
 }
 .hero__stat-num {
   font-family: var(--font-display);
@@ -941,7 +941,18 @@ section { position: relative; }
   font-weight: 800;
   letter-spacing: -0.02em;
 }
-.hero__title { font-size: clamp(44px, 9vw, 112px); line-height: 0.95; }
+/* Hero headline runs on one horizontal band — lead phrase, then the
+   colour-swept phrase beside it. Wraps to two lines on narrow screens. */
+.hero__title {
+  font-size: clamp(34px, 5.4vw, 86px);
+  line-height: 0.95;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.26em;
+  row-gap: 0.04em;
+}
+.hero__title-lead { white-space: nowrap; }
 /* Hero color sweep: outlined text with vinyl wrap colours flowing right-to-left.
    Two stacked copies (inline-grid): bottom = seamless tiffany outline via
    8-direction text-shadow (shadows trace the flattened silhouette — no interior
