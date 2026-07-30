@@ -53,7 +53,8 @@
   --dur-slow: 500ms;
 
   /* Layout */
-  --container-max: 1240px;
+  --container-max: 1520px;
+  --measure: 68ch;
   --nav-height: 76px;
 }
 
@@ -95,6 +96,17 @@ p { margin: 0; }
 }
 @media (min-width: 768px) {
   .container { padding: 0 var(--space-6); }
+}
+/* Adaptive gutters — insets grow with the viewport so wide screens breathe */
+@media (min-width: 1280px) {
+  .container { padding: 0 var(--space-7); }
+}
+@media (min-width: 1680px) {
+  .container { padding: 0 var(--space-8); }
+}
+/* Ultra-wide monitors: let the shell grow a step so it doesn't island */
+@media (min-width: 1920px) {
+  :root { --container-max: 1680px; }
 }
 
 section { position: relative; }
@@ -276,25 +288,43 @@ section { position: relative; }
   background: radial-gradient(120% 90% at 50% -10%, #14171a 0%, var(--color-black) 60%);
 }
 .hero__stripes {
-  --wm: url(../assets/textures/wrap-everything.png);
   position: absolute;
-  inset: -25%;
+  inset: 0;
   z-index: 0;
-  opacity: 0.09;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* Three hand-lettered marks drifting across the hero, each on its own
+   row, size, tilt and speed so the spacing never reads as a pattern. */
+.hero__mark {
+  position: absolute;
+  aspect-ratio: 3905 / 1299;
   background: var(--color-tiffany);
-  -webkit-mask-image: var(--wm), var(--wm);
-  mask-image: var(--wm), var(--wm);
+  opacity: 0.08;
+  -webkit-mask-image: url(../assets/textures/wrap-everything.png);
+  mask-image: url(../assets/textures/wrap-everything.png);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-size: 46vw, 40vw;
-  mask-size: 46vw, 40vw;
-  -webkit-mask-position: 14% 20%, 88% 82%;
-  mask-position: 14% 20%, 88% 82%;
-  animation: stripeDrift 60s ease-in-out infinite alternate;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  will-change: transform;
 }
-@keyframes stripeDrift {
+.hero__mark--a {
+  width: 42vw; top: 9%;  left: -46vw; rotate: -3deg;
+  animation: markCross 52s linear infinite;
+}
+.hero__mark--b {
+  width: 30vw; top: 45%; left: -34vw; rotate: 2.5deg;
+  opacity: 0.06;
+  animation: markCross 74s linear infinite -29s;
+}
+.hero__mark--c {
+  width: 36vw; top: 73%; left: -40vw; rotate: -1.5deg;
+  animation: markCross 63s linear infinite -47s;
+}
+@keyframes markCross {
   from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-3%, -2.5%, 0); }
+  to   { transform: translate3d(160vw, 0, 0); }
 }
 .hero__glow {
   position: absolute;
@@ -671,7 +701,7 @@ section { position: relative; }
   overflow: hidden;
 }
 .cta-band h2 { font-size: clamp(28px, 4vw, 44px); }
-.cta-band p { margin-top: var(--space-3); color: var(--color-text-muted); }
+.cta-band p { margin-top: var(--space-3); color: var(--color-text-muted); max-width: var(--measure); margin-left: auto; margin-right: auto; }
 .cta-band .btn { margin-top: var(--space-5); }
 
 /* ---- Footer ---- */
@@ -1000,9 +1030,16 @@ section { position: relative; }
 @media (prefers-reduced-motion: reduce) {
   .color-sweep__fill { animation: none; visibility: hidden; }
   .fill--tiffany { visibility: visible; }
+  /* Park the marks on-screen instead of letting them snap off-canvas */
+  .hero__mark { animation: none !important; transform: none !important; }
+  .hero__mark--a { left: 6%; }
+  .hero__mark--b { left: 58%; }
+  .hero__mark--c { left: 22%; }
 }
 .section-head { max-width: 860px; }
 .section-head h2 { font-size: clamp(34px, 4.5vw, 58px); line-height: 1.0; }
+/* Headings may run wide; body prose stays inside a readable measure */
+.section-head p, .page-hero p, .hero__sub { max-width: var(--measure); }
 .cta-band h2 { font-size: clamp(34px, 5vw, 64px); line-height: 1.0; }
 .service-detail__body h3 { text-transform: uppercase; font-weight: 800; letter-spacing: -0.01em; }
 .card h3 { text-transform: uppercase; font-weight: 700; font-size: 18px; letter-spacing: 0; }
